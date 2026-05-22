@@ -836,6 +836,31 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 render();
-</script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } 
+    from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC7Ydf3FieVL-QlEoXnFKW--tCp6MAEyQE",
+      authDomain: "mermoz-fait-la-fete.firebaseapp.com",
+      projectId: "mermoz-fait-la-fete",
+      storageBucket: "mermoz-fait-la-fete.firebasestorage.app",
+      messagingSenderId: "467064635494",
+      appId: "1:467064635494:web:344a62162f4af218ca2da7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.inscrire = async function(choix) {
+      await addDoc(collection(db, "inscriptions"), {
+        choix: choix,
+        date: new Date()
+      });
+
+      alert("Inscription envoyée !");
+    };
+  </script>
 </body>
 </html>
